@@ -16,7 +16,6 @@ require_once __DIR__.'/src/BaiduBce/Log/MonoLogFactory.php';
 require_once __DIR__.'/src/BaiduBce/Log/NullLogFactory.php';
 //Util
 require_once __DIR__.'/src/BaiduBce/Util/DateUtils.php';
-//require_once __DIR__.'/src/BaiduBce/Util/GenerateMimeTypes.php';
 require_once __DIR__.'/src/BaiduBce/Util/HashUtils.php';
 require_once __DIR__.'/src/BaiduBce/Util/HttpUtils.php';
 require_once __DIR__.'/src/BaiduBce/Util/mime.types.php';

@@ -1124,6 +1124,33 @@ class LssClient extends BceBaseClient
         );
     }
 
+    public function clipRecords($body, $options = []) {
+
+        list($config) = $this->parseOptions($options, 'config');
+
+        if (!isset($body['playDomain']) || empty($body['playDomain'])) {
+            throw new BceClientException("The parameter playDomain "
+                . "should NOT be null or empty string");
+        }
+        if (!isset($body['app']) || empty($body['app'])) {
+            throw new BceClientException("The parameter app "
+                . "should NOT be null or empty string");
+        }
+        if (!isset($body['stream']) || empty($body['stream'])) {
+            throw new BceClientException("The parameter stream "
+                . "should NOT be null or empty string");
+        }
+
+        return $this->sendRequest(
+            HttpMethod::POST,
+            array(
+                'config' => $config,
+                'body' => json_encode($body),
+            ),
+            '/recording/clip'
+        );
+    }
+
     /**
      * Create a image watermark.
      *
@@ -2506,6 +2533,37 @@ class LssClient extends BceBaseClient
                 'params' => $params,
             ),
             "/domain/$domain/app/$app/stream/$stream"
+        );
+    }
+
+    /**
+     * Get a security policy of LSS 3.0.
+     *
+     * @param $name string, security policy name
+     * @param array $options Supported options:
+     *      {
+     *          config: the optional bce configuration, which will overwrite the
+     *                  default client configuration that was passed in constructor.
+     *      }
+     * @return mixed security policy detail
+     * @throws BceClientException
+     */
+    public function querySecurityPolicy($name, $options = array())
+    {
+        list($config) = $this->parseOptions($options, 'config');
+
+        if (empty($name)) {
+            throw new BceClientException("The parameter name "
+                . "should NOT be null or empty string");
+        }
+        $this->prefix = '/v6';
+
+        return $this->sendRequest(
+            HttpMethod::GET,
+            array(
+                'config' => $config,
+            ),
+            "/securitypolicy/$name"
         );
     }
 

@@ -1,6 +1,6 @@
 <?php
 /*
-* Copyright 2014 Baidu, Inc.
+* Copyright 2017 Baidu, Inc.
 *
 * Licensed under the Apache License, Version 2.0 (the "License"); you may not
 * use this file except in compliance with the License. You may obtain a copy of
@@ -15,18 +15,26 @@
 * the License.
 */
 
-namespace BaiduBce\Exception;
+namespace BaiduBce\Services\Bcc\model;
 
-
-class BceBaseException extends \Exception
+class EphemeralDisk
 {
+    var $sizeInGB;
+    var $storageType;
+
     /**
-     * Constructs a new BceBaseException instance.
+     * This class define detail of creating ephemeral volume.
      *
-     * @param string $message the exception message
+     * @param int $sizeInGB
+     *          The size of volume in GB.
+     *
+     * @param string $storageType
+     *          The storage type of volume,
+     *          see more detail in https://bce.baidu.com/doc/BCC/API.html#StorageType
      */
-    function __construct($message)
+    function __construct($sizeInGB, $storageType='sata')
     {
-        parent::__construct($message);
+        $this->storageType = $storageType;
+        $this->sizeInGB = $sizeInGB;
     }
 }
