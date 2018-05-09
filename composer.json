@@ -1,6 +1,6 @@
 {
-  "name": "baidubce/bce-sdk-php-v9.0",
-  "homepage": "http://bce.baidu.com/sdkforphp",
+  "name": "allenqin/bce-sdk-php-v9.0",
+  "homepage": "https://github.com/AllenQin/bce-sdk-php/tree/1.1",
   "description": "BCE SDK for PHP",
   "keywords": [
     "bce",
@@ -11,12 +11,12 @@
   "license": "Apache-2.0",
   "authors": [
     {
-      "name": "Baidu BCE",
-      "homepage": "http://bce.baidu.com"
+      "name": "Allenqin",
+      "homepage": "https://github.com/AllenQin/bce-sdk-php/tree/1.1"
     }
   ],
   "support": {
-    "issues": "https://github.com/baidubce/bce-sdk-php/issues"
+    "issues": "https://github.com/AllenQin/bce-sdk-php/tree/1.1"
   },
   "require": {
     "php": ">=5.3.3",
