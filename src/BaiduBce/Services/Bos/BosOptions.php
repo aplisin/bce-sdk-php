@@ -46,6 +46,9 @@ class BosOptions
 
     const OBJECT_COPY_SOURCE = 'copySource';
     const OBJECT_COPY_SOURCE_IF_MATCH_TAG = 'ifMatchTag';
+    const OBJECT_COPY_SOURCE_IF_NONE_MATCH_TAG = 'ifNoneMatchTag';
+    const OBJECT_COPY_SOURCE_IF_UNMODIFIED_SINCE = 'ifUnmodifiedSince';
+    const OBJECT_COPY_SOURCE_IF_MODIFIED_SINCE = 'ifModifiedSince';
     const OBJECT_COPY_METADATA_DIRECTIVE = 'metadataDirective';
 
     const BUCKET_LOCATION = 'bucketLocation';
@@ -54,6 +57,8 @@ class BosOptions
 
     const ACL = 'acl';
     const LOCATION = 'location';
+    const REPLICATION = 'replication';
+    const REPLICATION_PROGRESS = 'replicationProgress';
 
     const UPLOAD_ID = 'uploadId';
     const PART_NUM = 'partNum';
@@ -64,6 +69,11 @@ class BosOptions
     const CONTENT_MD5 = 'contentMd5';
     const CONTENT_SHA256 = 'contentSHA256';
     const USER_METADATA = 'userMetadata';
+    const CONTENT_DISPOSITION = 'contentDisposition';
+
+    const BCE_ACL = 'x-bce-acl';
+    const BCE_ACL_GRANT_READ = 'x-bce-grant-read';
+    const BCE_ACL_GRANT_FULL_CONTROL = 'x-bce-grant-full-control';
 
     const MAX_PARTS_COUNT = 'maxPartsCount';
     const PART_NUMBER_MARKER = 'partNumberMarker';
@@ -74,4 +84,9 @@ class BosOptions
     const DELIMITER = 'delimiter';
     const LIMIT = 'limit';
     const STORAGE_CLASS = 'storageClass';
+    const NEXT_APPEND_OFFSET = 'nextAppendOffset';
+    const BCE_OBJECT_TYPE = 'objectType';
+    const COPY_SOURCE_BUCKET = 'copySourceBucket';
+    const COPY_SOURCE_OBJECT = 'copySourceObject';
+    const CONTENT_CRC32 = 'crc32';
 } 

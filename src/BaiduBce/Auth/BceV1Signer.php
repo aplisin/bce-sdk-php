@@ -102,21 +102,24 @@ class BceV1Signer implements SignerInterface
             $params,
             true
         );
+
         // Sorted the headers should be signed from the request.
-        $headersToSign = null;
+        $headersToSignOption = null;
         if (isset($options[SignOptions::HEADERS_TO_SIGN])) {
-            $headersToSign = $options[SignOptions::HEADERS_TO_SIGN];
+            $headersToSignOption = $options[SignOptions::HEADERS_TO_SIGN];
         }
+        $headersToSign = BceV1Signer::getHeadersToSign($headers, $headersToSignOption);
         // Formatting the headers from the request based on signing protocol.
-        $canonicalHeader = BceV1Signer::getCanonicalHeaders(
-            BceV1Signer::getHeadersToSign($headers, $headersToSign)
-        );
+        $canonicalHeader = BceV1Signer::getCanonicalHeaders($headersToSign);
+        $headersToSign = array_keys($headersToSign);
+        sort($headersToSign);
         $signedHeaders = '';
-        if ($headersToSign !== null) {
+        if ($headersToSignOption !== null) {
             $signedHeaders = strtolower(
-                trim(implode(";", array_keys($headersToSign)))
+                trim(implode(";", $headersToSign))
             );
         }
+
         $canonicalRequest = "$httpMethod\n$canonicalURI\n"
             . "$canonicalQueryString\n$canonicalHeader";
 

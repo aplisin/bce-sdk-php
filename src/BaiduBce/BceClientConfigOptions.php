@@ -24,6 +24,7 @@ class BceClientConfigOptions
     const PROTOCOL = 'protocol';
     const REGION = 'region';
     const ENDPOINT = 'endpoint';
+    const CUSTOM = 'custom';
     const CREDENTIALS = 'credentials';
     const RETRY_POLICY = 'retryPolicy';
     const SEND_BUF_SIZE = 'sendBufSize';

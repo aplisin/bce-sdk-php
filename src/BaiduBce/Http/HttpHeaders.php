@@ -42,14 +42,24 @@ class HttpHeaders
     const SERVER = 'Server';
     const USER_AGENT = 'User-Agent';
     const PRAGMA = 'Pragma';
+    const CACHE_CONTROL = 'Cache-Control';
 
     // BCE Common HTTP Headers
     const BCE_PREFIX = 'x-bce-';
+    
     const BCE_ACL = 'x-bce-acl';
+    const BCE_ACL_GRANT_READ = 'x-bce-grant-read';
+    const BCE_ACL_GRANT_FULL_CONTROL = 'x-bce-grant-full-control';
+
     const BCE_CONTENT_SHA256 = 'x-bce-content-sha256';
+    const BCE_CONTENT_CRC32 = 'x-bce-content-crc32';
     const BCE_COPY_METADATA_DIRECTIVE = 'x-bce-metadata-directive';
     const BCE_COPY_SOURCE = 'x-bce-copy-source';
+    const BCE_COPY_RANGE  = 'x-bce-copy-source-range';
     const BCE_COPY_SOURCE_IF_MATCH = 'x-bce-copy-source-if-match';
+    const BCE_COPY_SOURCE_IF_NONE_MATCH = 'x-bce-copy-source-if-none-match';
+    const BCE_COPY_SOURCE_IF_UNMODIFIED_SINCE = 'x-bce-copy-source-if-unmodified-since';
+    const BCE_COPY_SOURCE_IF_MODIFIED_SINCE = 'x-bce-copy-source-if-modified-since';
     const BCE_DATE = 'x-bce-date';
     const BCE_USER_METADATA_PREFIX = 'x-bce-meta-';
     const BCE_REQUEST_ID = 'x-bce-request-id';
@@ -58,4 +68,7 @@ class HttpHeaders
 
     // BOS HTTP Headers
     const BOS_DEBUG_ID = 'x-bce-Bos-debug-id';
+    const NEXT_APPEND_OFFSET = 'x-bce-next-append-offset';
+    const BCE_OBJECT_TYPE = 'x-bce-object-type';
+    const BCE_KEEP_TIME = 'x-bce-keep-last-modified';
 }

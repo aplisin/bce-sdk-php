@@ -49,10 +49,10 @@ class GuzzleLogAdapter extends AbstractLogAdapter
         if (LogFactory::isDebugEnabled()) {
             // To avoid memory exhausted, truncate request or response longer than 1024 bytes.
             if(strlen($extras['request']) > 1024){
-                $extras['request'] = substr($request, 0, 1024);
+                $extras['request'] = substr($extras['request'], 0, 1024);
             }
             if(strlen($extras['response']) > 1024){
-                $extras['response'] = substr($response, 0, 1024);
+                $extras['response'] = substr($extras['response'], 0, 1024);
             }
             $this->logger->log(LogLevel::DEBUG, $message, $extras);
         }

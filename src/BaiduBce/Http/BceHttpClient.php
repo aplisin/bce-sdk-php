@@ -222,7 +222,7 @@ class BceHttpClient
         if ($guzzleResponse->getTransferEncoding() === 'chunked') {
             if ($guzzleResponse->isContentType('json')) {
                 $responseBody = $guzzleResponse->json();
-                if (isset($responseBody['code'])) {
+                if (isset($responseBody['code']) && $responseBody['code'] === 'InternalError') {
                   $guzzleResponse->setStatus(500);
                 }
             }

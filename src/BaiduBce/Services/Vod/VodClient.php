@@ -70,7 +70,11 @@ class VodClient extends BceBaseClient
      */
     public function applyMedia($options = array())
     {
-        list($config) = $this->parseOptions($options, 'config');
+        list($config, $presetGroup, $priority) =
+            $this->parseOptionsIgnoreExtra($options,
+                'config',
+                'presetGroup',
+                'priority');
 
         $params = array(
             'apply' => null,
@@ -98,15 +102,32 @@ class VodClient extends BceBaseClient
      *          config: the optional bce configuration, which will overwrite the
      *                  default vod client configuration that was passed in constructor.
      *          sourceExtension: extension of the media source.
-     *          transcodingPresetGroupName: preset group to be used for the media
+     *          presetGroup: preset group to be used for the media
+     *          priority: priority
+     *          actionAttributes: { remove watermark and prologue params for the media
+     *              horizontalOffsetInPixel: number, watermark Horizontal offset
+     *              verticalOffsetInPixel: number, watermark Vertical offset
+     *              watermarkWidth: number, watermark region width
+     *              watermarkHeight: number, watermark region height
+     *              prologueCuttingInSeconds: number, prologue duration time
+     *          }
      *      }
      * @return mixed created vod media info
      * @throws BceClientException
      */
     public function processMedia($mediaId, $title, $description, $options = array())
     {
-        list($config, $extension, $presetGroup) =
-            $this->parseOptions($options, 'config', 'sourceExtension', 'transcodingPresetGroupName');
+        list($config, $extension, $presetGroup, $priority, $actionAttributes) =
+            $this->parseOptions($options,
+                'config',
+                'sourceExtension',
+                'presetGroup',
+                'priority',
+                'actionAttributes');
+        if (is_null($priority)) {
+            $priority = 0;
+        }
+
         $params = array(
             'process' => null,
         );
@@ -115,7 +136,12 @@ class VodClient extends BceBaseClient
             'description' => $description,
             'sourceExtension' => $extension,
             'transcodingPresetGroupName' => $presetGroup,
+            'priority' => $priority
         );
+
+        if ($actionAttributes !== null) {
+            $body['actionAttributes'] = $actionAttributes;
+        }
 
         return $this->sendRequest(
             HttpMethod::PUT,
@@ -144,12 +170,13 @@ class VodClient extends BceBaseClient
      */
     public function rerunMedia($mediaId, $options = array())
     {
-        list($config) = $this->parseOptions($options, 'config');
-
+        list($config, $presetGroup, $priority) =
+            $this->parseOptions($options, 'config', 'presetGroup', 'priority');
         $params = array(
             'rerun' => null,
+            'presetGroup' => $presetGroup,
+            'priority' => $priority
         );
-
         return $this->sendRequest(
             HttpMethod::PUT,
             array(
@@ -165,17 +192,23 @@ class VodClient extends BceBaseClient
      * merge vod media(s)
      * You can merge media(s) to one media
      *
+     * @param $mediaClips media clips to be merged into the new media
+     * @param $title the title of the new media
+     * @param $description the description of the new media
      * @param array $options Supported options:
      *      {
      *          config: the optional bce configuration, which will overwrite the
      *                  default vod client configuration that was passed in constructor.
+     *          presetGroup: the preset group of the new media
+     *          priority: the priority of the new media
      *      }
      * @return mixed merged vod media info
      * @throws BceClientException
      */
     public function mergeMedia($mediaClips, $title, $description, $options = array())
     {
-        list($config) = $this->parseOptions($options, 'config');
+        list($config, $presetGroup, $priority)
+            = $this->parseOptions($options, 'config', 'presetGroup', 'priority');
 
         $params = array(
             'merge' => null,
@@ -185,9 +218,12 @@ class VodClient extends BceBaseClient
             'title' => $title,
             'description' => $description,
         );
+
         $body = array(
             'attributes' => $attributes,
             'mediaClips' => $mediaClips,
+            'transcodingPresetGroupName' => $presetGroup,
+            'priority' => $priority,
         );
 
         return $this->sendRequest(
@@ -234,7 +270,8 @@ class VodClient extends BceBaseClient
         if (!preg_match("/^[a-z0-9]{0,10}$/", $extension)) {
             $extension = '';
         }
-        $options['extension'] = $extension;
+        $options['sourceExtension'] = $extension;
+
         return $this->processMedia($uploadInfo->mediaId, $title, $description, $options);
     }
 
@@ -275,7 +312,7 @@ class VodClient extends BceBaseClient
         if (!preg_match("/^[a-z0-9]{0,10}$/", $extension)) {
             $extension = '';
         }
-        $options['extension'] = $extension;
+        $options['sourceExtension'] = $extension;
         return $this->processMedia($uploadInfo->mediaId, $title, $description, $options);
     }
 

@@ -112,6 +112,18 @@ class BceBaseClient
             $metadata[BosOptions::STORAGE_CLASS] =
               trim($headers[HttpHeaders::BCE_STORAGE_CLASS], '"');
         }
+        if (isset($headers[HttpHeaders::NEXT_APPEND_OFFSET])) {
+            $metadata[BosOptions::NEXT_APPEND_OFFSET] = 
+                $headers[HttpHeaders::NEXT_APPEND_OFFSET];
+        }
+        if (isset($headers[HttpHeaders::BCE_OBJECT_TYPE])) {
+            $metadata[BosOptions::BCE_OBJECT_TYPE] = 
+                $headers[HttpHeaders::BCE_OBJECT_TYPE];
+        }
+        if (isset($headers[HttpHeaders::BCE_CONTENT_CRC32])) {
+            $metadata[BosOptions::CONTENT_CRC32] =
+                (int)$headers[HttpHeaders::BCE_CONTENT_CRC32];
+        }
         return $metadata;
     }
 
